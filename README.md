@@ -1,6 +1,8 @@
 # SDGs Squad: Master SDGs 🌍🎓
 # Nasa Space Apps Cairo | 2024
 
+first of all to run the project you have to opne the "cmd" -Terminal- in the project directory then type `python -m http.server 8000` then open the following file "./HTML/main.html"
+
 ## 🚀 Project Overview
 
 Welcome to the SDGs Squad project! We're on a mission to bridge the gap in educating high school students about the Sustainable Development Goals (SDGs) and their connection to real-world issues like climate change, energy, and education.
