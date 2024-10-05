@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kahoot API Integration</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 20px;
+      }
+      #gameInfo,
+      #participants {
+        margin-bottom: 20px;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Kahoot Game Information</h1>
+    <div id="gameInfo"></div>
+    <h2>Participants</h2>
+    <div id="participants"></div>
+
+    <script>
+      // Replace with your actual organization ID and game session ID
+      const organizationId = "your-organization-id";
+      const gameSessionId = "your-game-session-id";
+
+      // Replace with your actual access token
+      const accessToken = "your-access-token";
+
+      async function fetchGameInfo() {
+        try {
+          const response = await fetch(
+            `https://results.kahoot.com/v1/organisations/${organizationId}/games/${gameSessionId}`,
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            }
+          );
+          const data = await response.json();
+          displayGameInfo(data);
+        } catch (error) {
+          console.error("Error fetching game info:", error);
+        }
+      }
+
+      async function fetchParticipants() {
+        try {
+          const response = await fetch(
+            `https://results.kahoot.com/v1/organisations/${organizationId}/games/${gameSessionId}/participants`,
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            }
+          );
+          const data = await response.json();
+          displayParticipants(data);
+        } catch (error) {
+          console.error("Error fetching participants:", error);
+        }
+      }
+
+      function displayGameInfo(gameInfo) {
+        const gameInfoDiv = document.getElementById("gameInfo");
+        gameInfoDiv.innerHTML = `
+                <p><strong>Game Session ID:</strong> ${
+                  gameInfo.gameSessionId
+                }</p>
+                <p><strong>Host User ID:</strong> ${gameInfo.hostUserId}</p>
+                <p><strong>Start Time:</strong> ${new Date(
+                  gameInfo.startTime
+                ).toLocaleString()}</p>
+            `;
+      }
+
+      function displayParticipants(participants) {
+        const participantsDiv = document.getElementById("participants");
+        let html =
+          "<table><tr><th>Participant ID</th><th>Nickname</th><th>User ID</th></tr>";
+        participants.forEach((participant) => {
+          html += `
+                    <tr>
+                        <td>${participant.participantId}</td>
+                        <td>${participant.nickname}</td>
+                        <td>${participant.userId || "N/A"}</td>
+                    </tr>
+                `;
+        });
+        html += "</table>";
+        participantsDiv.innerHTML = html;
+      }
+
+      // Fetch data when the page loads
+      fetchGameInfo();
+      fetchParticipants();
+    </script>
+  </body>
+</html>
