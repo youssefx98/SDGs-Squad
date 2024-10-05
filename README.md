@@ -1,7 +1,7 @@
 # SDGs Squad: Master SDGs 🌍🎓
 # Nasa Space Apps Cairo | 2024
 
-## first of all to run the project you have to opne the "cmd" -Terminal- in the project directory then type `python -m http.server 8000` ## then open the following file "./HTML/main.html"
+## first of all to run the project you have to opne the "cmd" -Terminal- in the project directory then type `python -m http.server 8000` then open the following file "./HTML/main.html"
 
 ## 🚀 Project Overview
 
